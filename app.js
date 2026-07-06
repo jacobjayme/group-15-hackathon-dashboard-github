@@ -203,8 +203,89 @@ function renderPacket(startup, company, match, packet) {
           <span class="badge ${badgeClass}">${escapeHTML(match.recommendation)}</span>
         </div>
       </section>
+
+      <section class="ai-section">
+        <h3>AI-Generated Packet (Live)</h3>
+        <p class="na-note">Sends this startup + company data to a live Claude call (via a serverless function) to write a fresh, AI-authored Intro Packet — separate from the deterministic scorecard above. Requires the dashboard to be deployed with an ANTHROPIC_API_KEY configured.</p>
+        <button id="generate-ai-btn" class="ai-generate-btn">Generate with AI</button>
+        <div id="ai-result"></div>
+      </section>
     </div>
   `;
+
+  document.getElementById("generate-ai-btn").addEventListener("click", () => generateWithAI(startup, company, match));
+}
+
+async function generateWithAI(startup, company, match) {
+  const btn = document.getElementById("generate-ai-btn");
+  const resultEl = document.getElementById("ai-result");
+  btn.disabled = true;
+  btn.textContent = "Generating…";
+  resultEl.innerHTML = "";
+
+  try {
+    const res = await fetch("/api/generate-packet", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ startup, company, match }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(data.error || `Request failed with status ${res.status}`);
+    }
+    resultEl.innerHTML = `<div class="ai-packet">${renderMarkdown(data.packet)}</div>`;
+  } catch (err) {
+    resultEl.innerHTML = `<p class="ai-error">Couldn't generate an AI packet: ${escapeHTML(err.message)}</p>`;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Generate with AI";
+  }
+}
+
+function renderMarkdown(text) {
+  const lines = (text || "").split("\n");
+  const html = [];
+  let inList = false;
+
+  const closeList = () => {
+    if (inList) {
+      html.push("</ul>");
+      inList = false;
+    }
+  };
+
+  const inline = (s) =>
+    escapeHTML(s)
+      .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+      .replace(/\*(.+?)\*/g, "<em>$1</em>");
+
+  lines.forEach((raw) => {
+    const line = raw.trim();
+    if (!line) {
+      closeList();
+      return;
+    }
+    const heading = line.match(/^(#{1,4})\s+(.*)$/);
+    if (heading) {
+      closeList();
+      const level = Math.min(heading[1].length + 2, 6);
+      html.push(`<h${level}>${inline(heading[2])}</h${level}>`);
+      return;
+    }
+    const bullet = line.match(/^[-*]\s+(.*)$/);
+    if (bullet) {
+      if (!inList) {
+        html.push("<ul>");
+        inList = true;
+      }
+      html.push(`<li>${inline(bullet[1])}</li>`);
+      return;
+    }
+    closeList();
+    html.push(`<p>${inline(line)}</p>`);
+  });
+  closeList();
+  return html.join("\n");
 }
 
 function currentFilteredStartups() {
