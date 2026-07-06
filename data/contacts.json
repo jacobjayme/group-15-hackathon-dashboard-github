@@ -1,0 +1,85 @@
+[
+  {
+    "company_id": "mtb",
+    "fallback_department": "Business Development / Partnerships",
+    "contacts": [
+      { "theme": "mortgage", "department": "Mortgage / Home Lending Operations" },
+      { "theme": "lending", "department": "Commercial Lending" },
+      { "theme": "wealth management", "department": "Wealth Management" },
+      { "theme": "fraud", "department": "Fraud & Compliance" },
+      { "theme": "payments", "department": "Payments Operations" },
+      { "theme": "insurance", "department": "Insurance Operations" },
+      { "theme": "insurtech", "department": "Insurance Operations" },
+      { "theme": "banking", "department": "Retail Banking Operations" },
+      { "theme": "compliance", "department": "Compliance" },
+      { "theme": "credit", "department": "Credit Risk" },
+      { "theme": "risk management", "department": "Risk Management" },
+      { "theme": "financial services", "department": "Corporate Strategy" },
+      { "theme": "fintech", "department": "Digital Banking / Innovation" }
+    ]
+  },
+  {
+    "company_id": "moog",
+    "fallback_department": "Business Development / Partnerships",
+    "contacts": [
+      { "theme": "aerospace", "department": "Aerospace Engineering" },
+      { "theme": "defense", "department": "Defense Programs" },
+      { "theme": "manufacturing", "department": "Manufacturing Engineering" },
+      { "theme": "robotics", "department": "Advanced Manufacturing" },
+      { "theme": "additive manufacturing", "department": "Additive Manufacturing" },
+      { "theme": "materials", "department": "Materials Engineering" },
+      { "theme": "motion control", "department": "Systems Engineering" },
+      { "theme": "sensors", "department": "R&D / Sensors" },
+      { "theme": "industrial", "department": "Industrial Engineering" },
+      { "theme": "electronics manufacturing", "department": "Electronics Engineering" },
+      { "theme": "autonomous", "department": "Autonomous Systems R&D" }
+    ]
+  },
+  {
+    "company_id": "acv",
+    "fallback_department": "Business Development / Partnerships",
+    "contacts": [
+      { "theme": "automotive", "department": "Dealer Partnerships" },
+      { "theme": "vehicle", "department": "Product / Vehicle Data" },
+      { "theme": "marketplace", "department": "Marketplace Operations" },
+      { "theme": "transportation", "department": "Operations" },
+      { "theme": "fleet", "department": "Fleet Partnerships" },
+      { "theme": "logistics", "department": "Logistics Operations" },
+      { "theme": "dealer", "department": "Dealer Partnerships" },
+      { "theme": "mobility", "department": "Product / Mobility" },
+      { "theme": "auto", "department": "Dealer Partnerships" }
+    ]
+  },
+  {
+    "company_id": "richproducts",
+    "fallback_department": "Business Development / Partnerships",
+    "contacts": [
+      { "theme": "food", "department": "Product Innovation" },
+      { "theme": "cpg", "department": "Category Management" },
+      { "theme": "food manufacturing", "department": "Manufacturing Operations" },
+      { "theme": "bakery", "department": "Bakery R&D" },
+      { "theme": "frozen food", "department": "Frozen Foods R&D" },
+      { "theme": "beverage", "department": "Beverage Innovation" },
+      { "theme": "ingredients", "department": "Ingredient Sourcing / R&D" },
+      { "theme": "food tech", "department": "Food Technology / R&D" },
+      { "theme": "agritech", "department": "Supply Chain & Sourcing" }
+    ]
+  },
+  {
+    "company_id": "delawarenorth",
+    "fallback_department": "Business Development / Partnerships",
+    "contacts": [
+      { "theme": "hospitality", "department": "Guest Experience" },
+      { "theme": "food service", "department": "Food & Beverage Operations" },
+      { "theme": "gaming", "department": "Ember Entertainment / Gaming" },
+      { "theme": "entertainment", "department": "Ember Entertainment / Gaming" },
+      { "theme": "travel", "department": "Travel Hospitality" },
+      { "theme": "tourism", "department": "Venue Operations" },
+      { "theme": "loyalty", "department": "Loyalty & Rewards" },
+      { "theme": "rewards", "department": "Loyalty & Rewards" },
+      { "theme": "casino", "department": "Ember Entertainment / Gaming" },
+      { "theme": "event tech", "department": "Venue Operations" },
+      { "theme": "venue management", "department": "Venue Operations" }
+    ]
+  }
+]
