@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>43North Intro Packet Dashboard</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+
+  <header class="app-header">
+    <h1>43North Intro Packet Dashboard</h1>
+    <p class="subtitle">Startup &rarr; established-company introduction opportunities, for staff review</p>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <section class="panel">
+        <h2>Established Companies</h2>
+        <div id="company-list" class="company-list"></div>
+      </section>
+
+      <section class="panel" id="matches-section" hidden>
+        <h2>Candidate Matches</h2>
+        <div id="match-list" class="match-list"></div>
+      </section>
+    </aside>
+
+    <main class="detail" id="detail">
+      <div class="empty-state">Select an established company to see candidate startup introductions.</div>
+    </main>
+  </div>
+
+  <section class="browse">
+    <button id="toggle-browse" class="browse-toggle" aria-expanded="false">
+      Browse all startups in the 43North data set <span id="browse-count"></span>
+    </button>
+    <div id="browse-panel" class="browse-panel" hidden>
+      <input type="search" id="browse-search" class="browse-search" placeholder="Search by name or industry&hellip;">
+      <div id="browse-list" class="browse-list"></div>
+    </div>
+  </section>
+
+  <footer class="app-footer">
+    <p>Intro packets shown here are precomputed examples generated from the 43North startup data set plus public information about each established company. Not exhaustive &mdash; startups without a packet below simply haven&rsquo;t been evaluated yet.</p>
+  </footer>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

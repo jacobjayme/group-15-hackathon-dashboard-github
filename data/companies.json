@@ -1,0 +1,26 @@
+[
+  {
+    "id": "mtb",
+    "name": "M&T Bank",
+    "hq": "Buffalo, NY",
+    "sector": "Regional banking — retail, commercial, wealth management",
+    "priority_summary": "2026 priorities are “operational excellence” and “teaming for growth”: growing mortgage originations, primary checking accounts, and wealth-management referrals, backed by ~$600M/yr in tech spend focused on generative AI and cloud modernization.",
+    "source_note": "Per M&T's Q1 2026 earnings call and investor materials."
+  },
+  {
+    "id": "moog",
+    "name": "Moog Inc.",
+    "hq": "East Aurora, NY",
+    "sector": "Aerospace & defense — precision motion control systems",
+    "priority_summary": "Running 80/20 simplification to improve margins, investing in facility upgrades to support organic growth, and expanding defense partnerships (e.g. a radar-systems collaboration with Echodyne).",
+    "source_note": "Per Moog's FY2026 earnings releases and investor news."
+  },
+  {
+    "id": "acv",
+    "name": "ACV Auctions",
+    "hq": "Buffalo, NY",
+    "sector": "Online wholesale marketplace for used vehicles (NASDAQ: ACVA)",
+    "priority_summary": "Expanding its Buffalo HQ R&D/engineering footprint, hiring 100+ tech and development roles, and rolling out AI-powered pricing tools (ACV MAX Recommendations).",
+    "source_note": "Per 2026 company and Empire State Development announcements."
+  }
+]
