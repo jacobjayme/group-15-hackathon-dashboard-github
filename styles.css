@@ -236,51 +236,6 @@ body {
   font-size: 0.9rem;
 }
 
-.ai-section {
-  border-top: 1px dashed var(--border);
-  padding-top: 1.25rem;
-}
-
-.ai-generate-btn {
-  background: var(--accent);
-  color: var(--surface);
-  border: none;
-  border-radius: 8px;
-  padding: 0.55rem 1rem;
-  font: inherit;
-  font-weight: 600;
-  cursor: pointer;
-  margin-top: 0.5rem;
-}
-
-.ai-generate-btn:hover { opacity: 0.9; }
-.ai-generate-btn:disabled { opacity: 0.6; cursor: default; }
-
-.ai-packet {
-  margin-top: 1rem;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 1rem 1.25rem;
-}
-
-.ai-packet h2, .ai-packet h3, .ai-packet h4 {
-  font-size: 0.95rem;
-  margin: 1rem 0 0.4rem;
-}
-.ai-packet h2:first-child, .ai-packet h3:first-child, .ai-packet h4:first-child { margin-top: 0; }
-.ai-packet p { margin: 0.4rem 0; }
-.ai-packet ul { margin: 0.4rem 0; padding-left: 1.1rem; }
-
-.ai-error {
-  margin-top: 1rem;
-  color: var(--no-fg);
-  background: var(--no-bg);
-  border-radius: 8px;
-  padding: 0.75rem 1rem;
-  font-size: 0.9rem;
-}
-
 .browse {
   margin-top: 2rem;
 }
