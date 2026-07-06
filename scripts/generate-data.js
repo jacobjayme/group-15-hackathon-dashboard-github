@@ -2,8 +2,8 @@
 // company data and writes out data/matches.json and data/intro_packets.json.
 //
 // Usage: node scripts/generate-data.js
-// Re-run whenever data/startups.json, data/companies.json, or
-// data/contacts.json changes.
+// Also used as a library by server.js, which re-runs this automatically
+// whenever the source data files change (see server.js's matching agent).
 
 const fs = require("fs");
 const path = require("path");
@@ -20,45 +20,61 @@ function writeJSONLines(name, items) {
   fs.writeFileSync(path.join(DATA_DIR, name), "[\n" + lines.join(",\n") + "\n]\n");
 }
 
-const companies = readJSON("companies.json");
-const startups = readJSON("startups.json");
-const contacts = readJSON("contacts.json");
-const contactsByCompany = new Map(contacts.map((c) => [c.company_id, c]));
+function runGeneration() {
+  const companies = readJSON("companies.json");
+  const startups = readJSON("startups.json");
+  const contacts = readJSON("contacts.json");
+  const contactsByCompany = new Map(contacts.map((c) => [c.company_id, c]));
 
-const matches = [];
-const introPackets = [];
+  const matches = [];
+  const introPackets = [];
 
-for (const company of companies) {
-  const eligible = startups.filter((s) => s.company_name.toLowerCase() !== company.name.toLowerCase());
+  for (const company of companies) {
+    const eligible = startups.filter((s) => s.company_name.toLowerCase() !== company.name.toLowerCase());
 
-  for (const startup of eligible) {
-    const score = scoreStartup(startup, company);
-    const matchId = `${company.id}__${startup.id}`;
+    for (const startup of eligible) {
+      const score = scoreStartup(startup, company);
+      const matchId = `${company.id}__${startup.id}`;
 
-    matches.push({
-      id: matchId,
-      company_id: company.id,
-      startup_id: startup.id,
-      match_score: score.total,
-      recommendation: score.recommendation,
-      match_reasons: buildMatchReasons(company, score.breakdown),
-      score_breakdown: score.breakdown,
-    });
+      matches.push({
+        id: matchId,
+        company_id: company.id,
+        startup_id: startup.id,
+        match_score: score.total,
+        recommendation: score.recommendation,
+        match_reasons: buildMatchReasons(company, score.breakdown),
+        score_breakdown: score.breakdown,
+      });
 
-    const packet = introPacketFor(startup, company, score);
-    introPackets.push({
-      match_id: matchId,
-      value_prop: packet.value_prop,
-      recommended_contact: recommendedContactFor(company, score.breakdown, contactsByCompany.get(company.id)),
-      intro_angle: packet.intro_angle,
-      draft_email: packet.draft_email,
-      cta: packet.cta,
-      risks: buildRisks(startup, company, score.breakdown),
-    });
+      const packet = introPacketFor(startup, company, score);
+      introPackets.push({
+        match_id: matchId,
+        value_prop: packet.value_prop,
+        recommended_contact: recommendedContactFor(company, score.breakdown, contactsByCompany.get(company.id)),
+        intro_angle: packet.intro_angle,
+        draft_email: packet.draft_email,
+        cta: packet.cta,
+        risks: buildRisks(startup, company, score.breakdown),
+      });
+    }
   }
+
+  writeJSONLines("matches.json", matches);
+  writeJSONLines("intro_packets.json", introPackets);
+
+  return {
+    matches: matches.length,
+    packets: introPackets.length,
+    companies: companies.length,
+    startups: startups.length,
+  };
 }
 
-writeJSONLines("matches.json", matches);
-writeJSONLines("intro_packets.json", introPackets);
+if (require.main === module) {
+  const result = runGeneration();
+  console.log(
+    `Generated ${result.matches} matches and ${result.packets} intro packets across ${result.companies} companies x ${result.startups} startups.`
+  );
+}
 
-console.log(`Generated ${matches.length} matches and ${introPackets.length} intro packets across ${companies.length} companies x ${startups.length} startups.`);
+module.exports = { runGeneration };

@@ -4,22 +4,76 @@
     "name": "M&T Bank",
     "hq": "Buffalo, NY",
     "city": "Buffalo",
-    "sector": "Regional banking — retail, commercial, wealth management",
-    "priority_summary": "2026 priorities are “operational excellence” and “teaming for growth”: growing mortgage originations, primary checking accounts, and wealth-management referrals, backed by ~$600M/yr in tech spend focused on generative AI and cloud modernization.",
+    "sector": "Regional banking \u2014 retail, commercial, wealth management",
+    "priority_summary": "2026 priorities are \u201coperational excellence\u201d and \u201cteaming for growth\u201d: growing mortgage originations, primary checking accounts, and wealth-management referrals, backed by ~$600M/yr in tech spend focused on generative AI and cloud modernization.",
     "source_note": "Per M&T's Q1 2026 earnings call and investor materials.",
-    "target_industries": ["fintech", "banking", "insurtech", "insurance", "lending", "mortgage", "payments", "wealth management", "credit", "fraud", "compliance", "risk management", "financial services"],
-    "priority_keywords": ["mortgage", "origination", "checking", "wealth management", "referral", "generative ai", "artificial intelligence", "cloud", "modernization", "efficiency", "digital banking", "fraud", "compliance", "automation"]
+    "target_industries": [
+      "fintech",
+      "banking",
+      "insurtech",
+      "insurance",
+      "lending",
+      "mortgage",
+      "payments",
+      "wealth management",
+      "credit",
+      "fraud",
+      "compliance",
+      "risk management",
+      "financial services"
+    ],
+    "priority_keywords": [
+      "mortgage",
+      "origination",
+      "checking",
+      "wealth management",
+      "referral",
+      "generative ai",
+      "artificial intelligence",
+      "cloud",
+      "modernization",
+      "efficiency",
+      "digital banking",
+      "fraud",
+      "compliance",
+      "automation"
+    ]
   },
   {
     "id": "moog",
     "name": "Moog Inc.",
     "hq": "East Aurora, NY",
     "city": "East Aurora",
-    "sector": "Aerospace & defense — precision motion control systems",
+    "sector": "Aerospace & defense \u2014 precision motion control systems",
     "priority_summary": "Running 80/20 simplification to improve margins, investing in facility upgrades to support organic growth, and expanding defense partnerships (e.g. a radar-systems collaboration with Echodyne).",
     "source_note": "Per Moog's FY2026 earnings releases and investor news.",
-    "target_industries": ["aerospace", "defense", "manufacturing", "robotics", "additive manufacturing", "materials", "motion control", "sensors", "industrial", "electronics manufacturing", "autonomous"],
-    "priority_keywords": ["manufacturing", "facility", "simplification", "efficiency", "organic growth", "defense", "radar", "precision", "production", "automation", "additive manufacturing", "aerospace"]
+    "target_industries": [
+      "aerospace",
+      "defense",
+      "manufacturing",
+      "robotics",
+      "additive manufacturing",
+      "materials",
+      "motion control",
+      "sensors",
+      "industrial",
+      "electronics manufacturing",
+      "autonomous"
+    ],
+    "priority_keywords": [
+      "manufacturing",
+      "facility",
+      "simplification",
+      "efficiency",
+      "organic growth",
+      "defense",
+      "radar",
+      "precision",
+      "production",
+      "automation",
+      "additive manufacturing",
+      "aerospace"
+    ]
   },
   {
     "id": "acv",
@@ -29,19 +83,64 @@
     "sector": "Online wholesale marketplace for used vehicles (NASDAQ: ACVA)",
     "priority_summary": "Expanding its Buffalo HQ R&D/engineering footprint, hiring 100+ tech and development roles, and rolling out AI-powered pricing tools (ACV MAX Recommendations).",
     "source_note": "Per 2026 company and Empire State Development announcements.",
-    "target_industries": ["automotive", "vehicle", "marketplace", "transportation", "fleet", "logistics", "dealer", "mobility", "auto"],
-    "priority_keywords": ["marketplace", "wholesale", "dealer", "pricing", "artificial intelligence", "engineering", "hiring", "vehicle condition", "inspection", "data", "recommendations"]
+    "target_industries": [
+      "automotive",
+      "vehicle",
+      "marketplace",
+      "transportation",
+      "fleet",
+      "logistics",
+      "dealer",
+      "mobility",
+      "auto"
+    ],
+    "priority_keywords": [
+      "marketplace",
+      "wholesale",
+      "dealer",
+      "pricing",
+      "artificial intelligence",
+      "engineering",
+      "hiring",
+      "vehicle condition",
+      "inspection",
+      "data",
+      "recommendations"
+    ]
   },
   {
     "id": "richproducts",
     "name": "Rich Products Corporation",
     "hq": "Buffalo, NY",
     "city": "Buffalo",
-    "sector": "Global food manufacturer — bakery, frozen foods, pizza, beverages ($5.8B annual sales)",
-    "priority_summary": "Building a “pizza powerhouse” through its January 2026 acquisition of Great Kitchens Food Company, and pushing clean-label innovation (natural-color Bettercreme/Buttrcreme icings) as it scales toward ambitious growth goals.",
+    "sector": "Global food manufacturer \u2014 bakery, frozen foods, pizza, beverages ($5.8B annual sales)",
+    "priority_summary": "Building a \u201cpizza powerhouse\u201d through its January 2026 acquisition of Great Kitchens Food Company, and pushing clean-label innovation (natural-color Bettercreme/Buttrcreme icings) as it scales toward ambitious growth goals.",
     "source_note": "Per Rich Products press releases (PR Newswire, Jan 2026 acquisition announcement; IDDBA 2026 trade-show coverage).",
-    "target_industries": ["food", "cpg", "food manufacturing", "bakery", "frozen food", "beverage", "ingredients", "food tech", "agritech"],
-    "priority_keywords": ["natural colors", "clean label", "pizza", "bakery", "dessert", "innovation", "acquisition", "scale", "beverage", "ingredients", "food safety", "supply chain"]
+    "target_industries": [
+      "food",
+      "cpg",
+      "food manufacturing",
+      "bakery",
+      "frozen food",
+      "beverage",
+      "ingredients",
+      "food tech",
+      "agritech"
+    ],
+    "priority_keywords": [
+      "natural colors",
+      "clean label",
+      "pizza",
+      "bakery",
+      "dessert",
+      "innovation",
+      "acquisition",
+      "scale",
+      "beverage",
+      "ingredients",
+      "food safety",
+      "supply chain"
+    ]
   },
   {
     "id": "delawarenorth",
@@ -51,7 +150,30 @@
     "sector": "Global hospitality, food service, and gaming/entertainment company ($3.2B+ annual revenue)",
     "priority_summary": "Consolidating its casinos, digital gaming, and rewards program under a new Ember Entertainment brand (launched early 2026), after divesting its airport hospitality division (sold to Areas, closed Dec 2025) to focus on core venue, gaming, and hospitality operations.",
     "source_note": "Per Delaware North company announcements and industry press (Areas acquisition press release; Ember Entertainment launch coverage).",
-    "target_industries": ["hospitality", "food service", "gaming", "entertainment", "travel", "tourism", "loyalty", "rewards", "casino", "event tech", "venue management"],
-    "priority_keywords": ["loyalty", "rewards", "digital gaming", "casino", "entertainment", "guest experience", "venue", "hospitality technology", "personalization", "data"]
+    "target_industries": [
+      "hospitality",
+      "food service",
+      "gaming",
+      "entertainment",
+      "travel",
+      "tourism",
+      "loyalty",
+      "rewards",
+      "casino",
+      "event tech",
+      "venue management"
+    ],
+    "priority_keywords": [
+      "loyalty",
+      "rewards",
+      "digital gaming",
+      "casino",
+      "entertainment",
+      "guest experience",
+      "venue",
+      "hospitality technology",
+      "personalization",
+      "data"
+    ]
   }
 ]
