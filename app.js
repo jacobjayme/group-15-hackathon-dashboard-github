@@ -113,7 +113,7 @@ function renderCompanyOverview(company, startupCount) {
       </section>
       <section>
         <h3>Candidate Matches</h3>
-        <p>Scored against all ${startupCount - 1} other startups in the 43North data set using each startup's industry, business model, description, region, and status. Top 5 shown at left &mdash; search the full ranked list below.</p>
+        <p>Scored against all <span class="mono-num">${startupCount - 1}</span> other startups on industry, business model, description, region, and status. Top 5 at left &mdash; search the full ranked list below.</p>
       </section>
     </div>
   `;
@@ -152,16 +152,16 @@ function renderPacket(startup, company, match, packet) {
   detail.innerHTML = `
     <div class="packet">
       <h2>${escapeHTML(startup.company_name)} &rarr; ${escapeHTML(company.name)}</h2>
-      <p class="packet-sub">Overall Match Score: <strong>${match.match_score}/100</strong></p>
+      <p class="packet-sub">Overall Match Score: <span class="mono-num">${match.match_score}/100</span></p>
 
       <section>
         <h3>Score Breakdown</h3>
         <ul>
-          <li>Industry/product alignment: ${b.industryScore}/40 ${b.industryHits.length ? `(matched: ${b.industryHits.map(escapeHTML).join(", ")})` : "(no matched keywords)"}</li>
-          <li>Stated-priority alignment: ${b.priorityScore}/35 ${b.priorityHits.length ? `(matched: ${b.priorityHits.map(escapeHTML).join(", ")})` : "(no matched keywords)"}</li>
-          <li>Business model fit: ${b.bizModelScore}/10 (${escapeHTML(b.bizModelLabel)})</li>
-          <li>Region: ${b.regionScore}/15 (${escapeHTML(b.regionLabel)})</li>
-          <li>Status adjustment: &times;${b.statusFactor} (${escapeHTML(b.statusLabel)})</li>
+          <li><span class="mono-num">${b.industryScore}/40</span> Industry/product alignment ${b.industryHits.length ? `(matched: ${b.industryHits.map(escapeHTML).join(", ")})` : "(no matched keywords)"}</li>
+          <li><span class="mono-num">${b.priorityScore}/35</span> Stated-priority alignment ${b.priorityHits.length ? `(matched: ${b.priorityHits.map(escapeHTML).join(", ")})` : "(no matched keywords)"}</li>
+          <li><span class="mono-num">${b.bizModelScore}/10</span> Business model fit (${escapeHTML(b.bizModelLabel)})</li>
+          <li><span class="mono-num">${b.regionScore}/15</span> Region (${escapeHTML(b.regionLabel)})</li>
+          <li><span class="mono-num">&times;${b.statusFactor}</span> Status adjustment (${escapeHTML(b.statusLabel)})</li>
         </ul>
       </section>
 

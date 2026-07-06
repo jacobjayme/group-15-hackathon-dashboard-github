@@ -11,8 +11,9 @@
 <div class="app">
 
   <header class="app-header">
-    <h1>43North Intro Packet Dashboard</h1>
-    <p class="subtitle">Startup &rarr; established-company introduction opportunities, for staff review</p>
+    <p class="kicker">43North &middot; Matchmaking Engine</p>
+    <h1>Intro Packet Dashboard</h1>
+    <p class="subtitle">Startup &rarr; established-company matches, scored and ranked for staff review</p>
   </header>
 
   <div class="layout">
@@ -29,13 +30,13 @@
     </aside>
 
     <main class="detail" id="detail">
-      <div class="empty-state">Select an established company to see candidate startup introductions.</div>
+      <div class="empty-state">Select a company to see its top candidate matches.</div>
     </main>
   </div>
 
   <section class="browse">
     <button id="toggle-browse" class="browse-toggle" aria-expanded="false">
-      Browse all startups in the 43North data set <span id="browse-count"></span>
+      Browse all startups <span id="browse-count"></span>
     </button>
     <div id="browse-panel" class="browse-panel" hidden>
       <input type="search" id="browse-search" class="browse-search" placeholder="Search by name or industry&hellip;">
@@ -44,7 +45,7 @@
   </section>
 
   <footer class="app-footer">
-    <p>Match scores come from a rule-based algorithm (scripts/matching.js) run over the full 43North startup data set against each established company's researched priorities &mdash; see the Score Breakdown on any match for exactly how its number was calculated. Run this dashboard with <code>node server.js</code> and it re-runs the algorithm automatically whenever data/startups.json, data/companies.json, or data/contacts.json changes.</p>
+    <p>Scores come from a rule-based algorithm (<code>scripts/matching.js</code>) &mdash; see the Score Breakdown on any match for how a number was calculated. Run with <code>node server.js</code> to keep matches auto-updated as the data changes.</p>
   </footer>
 
 </div>

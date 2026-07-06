@@ -2,39 +2,53 @@
   --bg: #f7f7f5;
   --surface: #ffffff;
   --border: #e2e0da;
-  --text: #1c1c1a;
-  --text-muted: #66645d;
-  --accent: #1f4d3a;
-  --accent-soft: #e7efe9;
+  --text: #14151a;
+  --text-muted: #5c5b56;
+  --text-faint: #918f88;
 
-  --send-bg: #e5f4e9;
-  --send-fg: #1a6b3c;
-  --review-bg: #eee8fb;
-  --review-fg: #5b3fb0;
-  --info-bg: #fbf1d9;
-  --info-fg: #8a6408;
+  --accent: #1f6e4e;
+  --accent-soft: #e5f3ec;
+  --accent-2: #2a5fb0;
+  --accent-2-soft: #e7eefb;
+
+  --font-mono: ui-monospace, "SF Mono", "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+
+  --send-bg: #e2f6e2;
+  --send-fg: #0f7a0f;
+  --review-bg: #fbf1d9;
+  --review-fg: #8a6100;
+  --info-bg: #fbe9df;
+  --info-fg: #a34a1f;
   --no-bg: #fbe7e5;
   --no-fg: #a5261b;
+
+  --grid-dot: rgba(20, 21, 26, 0.05);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #15161a;
-    --surface: #1d1f24;
-    --border: #303239;
+    --bg: #121317;
+    --surface: #1b1d22;
+    --border: #2d2f36;
     --text: #ececea;
     --text-muted: #a2a09a;
-    --accent: #7fcaa4;
-    --accent-soft: #1f2b24;
+    --text-faint: #716f6a;
+
+    --accent: #6fcf9c;
+    --accent-soft: #1a2b22;
+    --accent-2: #6ea8f2;
+    --accent-2-soft: #1a2636;
 
     --send-bg: #16301f;
-    --send-fg: #7fd39c;
-    --review-bg: #241f38;
-    --review-fg: #b7a4f2;
-    --info-bg: #332a10;
-    --info-fg: #e4c561;
+    --send-fg: #6fdc82;
+    --review-bg: #332a10;
+    --review-fg: #e4c561;
+    --info-bg: #3a2415;
+    --info-fg: #f0a066;
     --no-bg: #331a17;
     --no-fg: #f0958a;
+
+    --grid-dot: rgba(255, 255, 255, 0.04);
   }
 }
 
@@ -43,9 +57,12 @@
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background: var(--bg);
+  background:
+    radial-gradient(var(--grid-dot) 1px, transparent 1px) 0 0 / 22px 22px,
+    var(--bg);
   color: var(--text);
   line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
 
 .app {
@@ -54,9 +71,32 @@ body {
   padding: 2rem 1.25rem 4rem;
 }
 
+.app-header .kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0 0 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+}
+
+.app-header .kicker::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-2);
+  box-shadow: 0 0 0 3px var(--accent-2-soft);
+}
+
 .app-header h1 {
-  margin: 0 0 0.25rem;
+  margin: 0 0 0.3rem;
   font-size: 1.5rem;
+  letter-spacing: -0.01em;
 }
 
 .subtitle {
@@ -79,17 +119,18 @@ body {
 .panel {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 1rem;
   margin-bottom: 1.25rem;
 }
 
 .panel h2 {
   margin: 0 0 0.75rem;
-  font-size: 0.85rem;
+  font-size: 0.78rem;
+  font-family: var(--font-mono);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--text-muted);
+  letter-spacing: 0.07em;
+  color: var(--text-faint);
 }
 
 .company-list, .match-list {
@@ -102,18 +143,26 @@ body {
   text-align: left;
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-left: 3px solid transparent;
+  border-radius: 6px;
   padding: 0.65rem 0.75rem;
   cursor: pointer;
   color: var(--text);
   font: inherit;
+  transition: border-color 0.12s ease, background 0.12s ease;
 }
 
-.card-btn:hover { border-color: var(--accent); }
+.card-btn:hover { border-color: var(--accent-2); }
+
+.card-btn:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 1px;
+}
 
 .card-btn.active {
   background: var(--accent-soft);
-  border-color: var(--accent);
+  border-color: var(--border);
+  border-left-color: var(--accent);
 }
 
 .card-btn .card-title {
@@ -136,18 +185,27 @@ body {
 }
 
 .score {
+  font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   color: var(--text-muted);
   white-space: nowrap;
 }
 
+.mono-num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
 .badge {
   display: inline-block;
-  font-size: 0.72rem;
-  font-weight: 600;
-  padding: 0.15rem 0.5rem;
-  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding: 0.18rem 0.55rem;
+  border-radius: 4px;
   white-space: nowrap;
 }
 
@@ -159,7 +217,7 @@ body {
 .detail {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 1.5rem;
   min-height: 320px;
 }
@@ -174,6 +232,7 @@ body {
 .packet h2 {
   margin: 0 0 0.25rem;
   font-size: 1.15rem;
+  letter-spacing: -0.01em;
 }
 
 .packet .packet-sub {
@@ -182,16 +241,24 @@ body {
   margin-bottom: 1rem;
 }
 
+.packet .packet-sub .mono-num {
+  color: var(--text);
+  font-weight: 700;
+}
+
 .packet section {
   margin-bottom: 1.25rem;
 }
 
 .packet section h3 {
-  font-size: 0.78rem;
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--text-muted);
-  margin: 0 0 0.4rem;
+  letter-spacing: 0.07em;
+  color: var(--text-faint);
+  margin: 0 0 0.5rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--border);
 }
 
 .packet ul {
@@ -204,7 +271,7 @@ body {
 .email-box {
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 6px;
   padding: 0.85rem 1rem;
   font-size: 0.92rem;
   white-space: pre-wrap;
@@ -216,11 +283,12 @@ body {
 }
 
 .cta-box {
-  background: var(--accent-soft);
-  border-radius: 8px;
+  background: var(--accent-2-soft);
+  border-radius: 6px;
   padding: 0.6rem 0.9rem;
   font-weight: 600;
   font-size: 0.92rem;
+  color: var(--text);
 }
 
 .recommendation-line {
@@ -245,26 +313,29 @@ body {
   text-align: left;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 0.85rem 1rem;
   font: inherit;
   font-weight: 600;
   color: var(--text);
   cursor: pointer;
+  transition: border-color 0.12s ease;
 }
 
-.browse-toggle:hover { border-color: var(--accent); }
+.browse-toggle:hover { border-color: var(--accent-2); }
+.browse-toggle:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 1px; }
 
 #browse-count {
+  font-family: var(--font-mono);
   font-weight: 400;
-  color: var(--text-muted);
+  color: var(--text-faint);
 }
 
 .browse-panel {
   margin-top: 0.75rem;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 1rem;
 }
 
@@ -272,11 +343,16 @@ body {
   width: 100%;
   padding: 0.55rem 0.75rem;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 6px;
   background: var(--bg);
   color: var(--text);
   font: inherit;
   margin-bottom: 0.75rem;
+}
+
+.browse-search:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 1px;
 }
 
 .browse-list {
@@ -294,8 +370,9 @@ body {
   gap: 0.75rem;
   padding: 0.5rem 0.6rem;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 6px;
   font-size: 0.88rem;
+  transition: border-color 0.12s ease;
 }
 
 .browse-row .browse-name { font-weight: 600; }
@@ -304,25 +381,26 @@ body {
 .browse-row.has-packet {
   cursor: pointer;
 }
-.browse-row.has-packet:hover { border-color: var(--accent); }
-
-.pill-available {
-  font-size: 0.72rem;
-  color: var(--send-fg);
-  background: var(--send-bg);
-  padding: 0.1rem 0.45rem;
-  border-radius: 999px;
-  white-space: nowrap;
-}
+.browse-row.has-packet:hover { border-color: var(--accent-2); }
 
 .pill-none {
-  font-size: 0.72rem;
-  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-faint);
   white-space: nowrap;
 }
 
 .app-footer {
   margin-top: 2rem;
-  color: var(--text-muted);
+  color: var(--text-faint);
   font-size: 0.8rem;
+}
+
+.app-footer code {
+  font-family: var(--font-mono);
+  background: var(--accent-2-soft);
+  color: var(--accent-2);
+  padding: 0.05rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.78rem;
 }
