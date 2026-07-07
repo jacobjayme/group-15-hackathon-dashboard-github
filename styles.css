@@ -84,13 +84,24 @@ body {
   color: var(--accent-2);
 }
 
+
 .app-header .kicker::before {
   content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
+  width: 24px;  /* Made it slightly larger so the star details are visible */
+  height: 24px;
   background: var(--accent-2);
-  box-shadow: 0 0 0 3px var(--accent-2-soft);
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 6px;
+
+  /* The Gemini-style 4-pointed sparkle SVG mask */
+  -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,2 C12,7.5 16.5,12 22,12 C16.5,12 12,16.5 12,22 C12,16.5 7.5,12 2,12 C7.5,12 12,7.5 12,2 Z"/></svg>') no-repeat center;
+  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,2 C12,7.5 16.5,12 22,12 C16.5,12 12,16.5 12,22 C12,16.5 7.5,12 2,12 C7.5,12 12,7.5 12,2 Z"/></svg>') no-repeat center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+
+  /* Updated from box-shadow so the glow follows the star shape instead of a square */
+  filter: drop-shadow(0 0 2px var(--accent-2-soft)); 
 }
 
 .app-header .subheader {
