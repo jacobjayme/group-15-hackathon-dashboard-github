@@ -60,11 +60,11 @@ function statusMultiplier(status) {
 }
 
 function recommendationFor(total, statusFactor) {
-  if (statusFactor <= 0.1) return "Do not prioritize";
-  if (total >= 65) return "Send intro now";
-  if (total >= 45) return "Needs 43North review";
-  if (total >= 25) return "Needs more information";
-  return "Do not prioritize";
+  if (statusFactor <= 0.1) return "Low priority";
+  if (total >= 65) return "Strong match";
+  if (total >= 45) return "Promising match";
+  if (total >= 25) return "Worth investigating";
+  return "Low priority";
 }
 
 function scoreStartup(startup, company) {
@@ -147,7 +147,7 @@ function recommendedContactFor(company, breakdown, contactProfile) {
 
 function introPacketFor(startup, company, score) {
   const b = score.breakdown;
-  const isSkip = score.recommendation === "Do not prioritize";
+  const isSkip = score.recommendation === "Low priority";
   const topTheme = b.industryHits[0] || b.priorityHits[0];
 
   const introAngle = isSkip

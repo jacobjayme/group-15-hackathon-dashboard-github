@@ -1,8 +1,15 @@
 const REC_BADGE = {
-  "Send intro now": "badge-send",
-  "Needs 43North review": "badge-review",
-  "Needs more information": "badge-info",
-  "Do not prioritize": "badge-no",
+  "Strong match": "badge-send",
+  "Promising match": "badge-review",
+  "Worth investigating": "badge-info",
+  "Low priority": "badge-no",
+};
+
+const REC_COLOR_VAR = {
+  "Strong match": "--send-fg",
+  "Promising match": "--review-fg",
+  "Worth investigating": "--info-fg",
+  "Low priority": "--no-fg",
 };
 
 let companies = [];
@@ -103,18 +110,28 @@ function selectCompany(companyId) {
 function renderCompanyOverview(company, startupCount) {
   const detail = document.getElementById("detail");
   detail.innerHTML = `
-    <div class="packet">
-      <h2>${escapeHTML(company.name)}</h2>
-      <p class="packet-sub">${escapeHTML(company.hq)} &middot; ${escapeHTML(company.sector)}</p>
-      <section>
-        <h3>Current Priorities</h3>
-        <p>${escapeHTML(company.priority_summary)}</p>
-        <p class="na-note">${escapeHTML(company.source_note)}</p>
-      </section>
-      <section>
-        <h3>Candidate Matches</h3>
-        <p>Scored against all <span class="mono-num">${startupCount - 1}</span> other startups on industry, business model, description, region, and status. Top 5 at left &mdash; search the full ranked list below.</p>
-      </section>
+    <div class="packet-grid">
+      <div class="widget widget-header" style="border-top-color: var(--accent-2)">
+        <p class="eyebrow">Established Company</p>
+        <h2>${escapeHTML(company.name)}</h2>
+        <p class="na-note" style="margin-top: 0.35rem;">${escapeHTML(company.hq)} &middot; ${escapeHTML(company.sector)}</p>
+      </div>
+      <div class="widgets-columns">
+        <div class="widgets-col">
+          <div class="widget">
+            <h3>Current Priorities</h3>
+            <p>${escapeHTML(company.priority_summary)}</p>
+            <p class="na-note" style="margin-top: 0.6rem;">${escapeHTML(company.source_note)}</p>
+          </div>
+        </div>
+        <div class="widgets-col">
+          <div class="widget">
+            <h3>Candidate Matches</h3>
+            <p>Scored against all <span class="mono-num">${startupCount - 1}</span> other startups on industry, business model, description, region, and status.</p>
+            <p class="na-note" style="margin-top: 0.6rem;">Top 5 shown at left &mdash; search the full ranked list below.</p>
+          </div>
+        </div>
+      </div>
     </div>
   `;
 }
@@ -133,8 +150,40 @@ function selectMatch(startupId) {
 function renderPacket(startup, company, match, packet) {
   const detail = document.getElementById("detail");
   const badgeClass = REC_BADGE[match.recommendation] || "badge-info";
-  const isSkip = match.recommendation === "Do not prioritize";
+  const recColorVar = REC_COLOR_VAR[match.recommendation] || "--info-fg";
+  const isSkip = match.recommendation === "Low priority";
   const b = match.score_breakdown;
+
+  const tiles = [
+    { label: "Industry", value: b.industryScore, max: 40, note: b.industryHits.length ? b.industryHits.join(", ") : "No matched keywords" },
+    { label: "Priority", value: b.priorityScore, max: 35, note: b.priorityHits.length ? b.priorityHits.join(", ") : "No matched keywords" },
+    { label: "Business Model", value: b.bizModelScore, max: 10, note: b.bizModelLabel },
+    { label: "Region", value: b.regionScore, max: 15, note: b.regionLabel },
+  ];
+
+  const tileHTML = tiles
+    .map((t) => {
+      const pct = t.max ? Math.round((t.value / t.max) * 100) : 0;
+      return `
+        <div class="score-tile">
+          <div class="tile-label">${escapeHTML(t.label)}</div>
+          <div class="tile-value mono-num">${t.value}/${t.max}</div>
+          <div class="tile-bar"><div class="tile-bar-fill" style="width:${pct}%"></div></div>
+          <div class="tile-note">${escapeHTML(t.note)}</div>
+        </div>
+      `;
+    })
+    .join("");
+
+  const statusOk = b.statusFactor >= 1;
+  const statusTileHTML = `
+    <div class="score-tile status-tile ${statusOk ? "status-ok" : "status-bad"}">
+      <div class="tile-label">Status</div>
+      <div class="tile-value mono-num">&times;${b.statusFactor}</div>
+      <div class="tile-bar"><div class="tile-bar-fill" style="width:${Math.round(b.statusFactor * 100)}%"></div></div>
+      <div class="tile-note">${escapeHTML(b.statusLabel)}</div>
+    </div>
+  `;
 
   const emailHTML = isSkip
     ? `<p class="na-note">Not applicable &mdash; this introduction is not recommended.</p>`
@@ -145,64 +194,63 @@ function renderPacket(startup, company, match, packet) {
       </div>
     `;
 
-  const ctaHTML = isSkip
+  const ctaWidget = isSkip
     ? ""
-    : `<section><h3>Suggested Call to Action</h3><div class="cta-box">${escapeHTML(packet.cta)}</div></section>`;
+    : `
+      <div class="widget">
+        <h3>Suggested Call to Action</h3>
+        <div class="cta-box">${escapeHTML(packet.cta)}</div>
+      </div>
+    `;
 
   detail.innerHTML = `
-    <div class="packet">
-      <h2>${escapeHTML(startup.company_name)} &rarr; ${escapeHTML(company.name)}</h2>
-      <p class="packet-sub">Overall Match Score: <span class="mono-num">${match.match_score}/100</span></p>
-
-      <section>
-        <h3>Score Breakdown</h3>
-        <ul>
-          <li><span class="mono-num">${b.industryScore}/40</span> Industry/product alignment ${b.industryHits.length ? `(matched: ${b.industryHits.map(escapeHTML).join(", ")})` : "(no matched keywords)"}</li>
-          <li><span class="mono-num">${b.priorityScore}/35</span> Stated-priority alignment ${b.priorityHits.length ? `(matched: ${b.priorityHits.map(escapeHTML).join(", ")})` : "(no matched keywords)"}</li>
-          <li><span class="mono-num">${b.bizModelScore}/10</span> Business model fit (${escapeHTML(b.bizModelLabel)})</li>
-          <li><span class="mono-num">${b.regionScore}/15</span> Region (${escapeHTML(b.regionLabel)})</li>
-          <li><span class="mono-num">&times;${b.statusFactor}</span> Status adjustment (${escapeHTML(b.statusLabel)})</li>
-        </ul>
-      </section>
-
-      <section>
-        <h3>Why This Match Makes Sense</h3>
-        <ul>${match.match_reasons.map((x) => `<li>${escapeHTML(x)}</li>`).join("")}</ul>
-      </section>
-
-      <section>
-        <h3>Startup Value Proposition</h3>
-        <p>${escapeHTML(packet.value_prop)}</p>
-      </section>
-
-      <section>
-        <h3>Recommended Contact</h3>
-        <p>${escapeHTML(packet.recommended_contact)}</p>
-      </section>
-
-      <section>
-        <h3>Suggested Intro Angle</h3>
-        <p>${escapeHTML(packet.intro_angle)}</p>
-      </section>
-
-      <section>
-        <h3>Draft Email</h3>
-        ${emailHTML}
-      </section>
-
-      ${ctaHTML}
-
-      <section>
-        <h3>Risks or Unknowns</h3>
-        <ul>${packet.risks.map((x) => `<li>${escapeHTML(x)}</li>`).join("")}</ul>
-      </section>
-
-      <section>
-        <h3>Recommendation</h3>
-        <div class="recommendation-line">
-          <span class="badge ${badgeClass}">${escapeHTML(match.recommendation)}</span>
+    <div class="packet-grid">
+      <div class="widget widget-header" style="border-top-color: var(${recColorVar})">
+        <div class="header-top">
+          <div>
+            <p class="eyebrow">Match</p>
+            <h2>${escapeHTML(startup.company_name)} &rarr; ${escapeHTML(company.name)}</h2>
+          </div>
+          <span class="badge badge-lg ${badgeClass}">${escapeHTML(match.recommendation)}</span>
         </div>
-      </section>
+        <div class="hero-score">
+          <span class="hero-score-num mono-num">${match.match_score}</span>
+          <span class="hero-score-max mono-num">/100</span>
+        </div>
+        <div class="hero-bar"><div class="hero-bar-fill" style="width:${match.match_score}%; background: var(${recColorVar})"></div></div>
+      </div>
+
+      <div class="widget">
+        <h3>Score Breakdown</h3>
+        <div class="score-tiles">
+          ${tileHTML}
+          ${statusTileHTML}
+        </div>
+      </div>
+
+      <div class="widgets-columns">
+        <div class="widgets-col">
+          <div class="widget">
+            <h3>Why This Match Makes Sense</h3>
+            <ul>${match.match_reasons.map((x) => `<li>${escapeHTML(x)}</li>`).join("")}</ul>
+          </div>
+          <div class="widget">
+            <h3>Startup Value Proposition</h3>
+            <p>${escapeHTML(packet.value_prop)}</p>
+          </div>
+        </div>
+        <div class="widgets-col">
+          <div class="widget">
+            <h3>Recommended Contact</h3>
+            <p>${escapeHTML(packet.recommended_contact)}</p>
+          </div>
+          <div class="widget">
+            <h3>Suggested Intro Angle</h3>
+            <p>${escapeHTML(packet.intro_angle)}</p>
+          </div>
+          ${ctaWidget}
+        </div>
+      </div>
     </div>
   `;
 }

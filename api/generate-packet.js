@@ -37,7 +37,7 @@ Please generate the Intro Packet using the exact 10-section structure below:
 ### 9. Risks or Unknowns
 * [List any reasons this match may not be ready, such as missing contact info, weak evidence of need, startup enterprise readiness, or contact authority.]
 ### 10. Recommendation
-* [Choose exactly one: Send intro now | Needs 43North review | Needs more information | Do not prioritize]`;
+* [Choose exactly one: Strong match | Promising match | Worth investigating | Low priority]`;
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
