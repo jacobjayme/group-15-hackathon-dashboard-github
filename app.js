@@ -156,7 +156,7 @@ function renderPacket(startup, company, match, packet) {
 
   const tiles = [
     { label: "Industry", value: b.industryScore, max: 40, note: b.industryHits.length ? b.industryHits.join(", ") : "No matched keywords" },
-    { label: "Priority", value: b.priorityScore, max: 35, note: b.priorityHits.length ? b.priorityHits.join(", ") : "No matched keywords" },
+    { label: "Strategic Fit", value: b.priorityScore, max: 35, note: b.priorityHits.length ? b.priorityHits.join(", ") : "No matched keywords" },
     { label: "Business Model", value: b.bizModelScore, max: 10, note: b.bizModelLabel },
     { label: "Region", value: b.regionScore, max: 15, note: b.regionLabel },
   ];
@@ -224,7 +224,6 @@ function renderPacket(startup, company, match, packet) {
         <h3>Score Breakdown</h3>
         <div class="score-tiles">
           ${tileHTML}
-          ${statusTileHTML}
         </div>
       </div>
 
